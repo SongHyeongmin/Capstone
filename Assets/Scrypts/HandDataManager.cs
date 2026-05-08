@@ -10,7 +10,7 @@ public class HandDataManager : MonoBehaviour
     private HandLandmarkerResult _latestResult;
     private bool _isDataNew = false;
 
-    // 다른 스크립트에서 가져갈 최종 월드 좌표 배열
+    // 다른 스크립트에서 가져갈 최종 월드 좌표 배열 
     public Vector3[] HandJoints { get; private set; } = new Vector3[21];
     // 다른 스크립트에서 가져갈 최종 월드 좌표 배열 (실측 단위, 손목이 원점)
     public Vector3[] WorldHandJoints { get; private set; } = new Vector3[21];
