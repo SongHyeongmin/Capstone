@@ -16,18 +16,16 @@ public class Ball : MonoBehaviour
             // 점수 증가
             GameManager.Instance.score += 1;
             Debug.Log("Score: " + GameManager.Instance.score);
-            RespawnBall();
+            DestroySquence();
         }
         if (collision.gameObject.CompareTag("Ground"))
         {
-            RespawnBall();
+            DestroySquence();
         }
     }
     
-    private void RespawnBall()
+    private void DestroySquence()
     {
-        transform.position = originPosition;
-        GetComponent<Rigidbody>().linearVelocity = Vector3.zero;
-        GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+        Destroy(gameObject);
     }
 }

@@ -7,6 +7,10 @@ TagManager:
   - Global Resource
   - Goal
   - Ground
+  - RedBall
+  - BlueBall
+  - YellowBall
+  - GreenBall
   layers:
   - Default
   - TransparentFX

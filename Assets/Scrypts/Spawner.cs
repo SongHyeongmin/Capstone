@@ -5,6 +5,8 @@ public class Spawner : MonoBehaviour
     [Header("공 설정")]
     public GameObject redBallPrefab;      // 공 프리팹
     public GameObject blueBallPrefab;     // 공 프리팹
+	public GameObject yellowBallPrefab;   // 공 프리팹
+	public GameObject greenBallPrefab;    // 공 프리팹
 
     [Header("생성 설정")]
     public float spawnInterval = 2.0f; // 생성 주기
