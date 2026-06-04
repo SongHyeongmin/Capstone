@@ -627,8 +627,8 @@ MonoBehaviour:
   timerText: {fileID: 1451691961}
   score: 0
   isGameOver: 0
-  gameTimeLimit: 3
-  gameTimer: 3
+  gameTimeLimit: 5
+  gameTimer: 5
   totalBallCount: 0
   destroyedBallCount: 0
   successBallCount: 0
