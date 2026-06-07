@@ -19,7 +19,7 @@ public class HandDataManager : MonoBehaviour
 
     // 다른 스크립트에서 가져갈 최종 월드 좌표 배열 
     public Vector3[] HandJoints { get; private set; } = new Vector3[21];
-    // 다른 스크립트에서 가져갈 최종 월드 좌표 배열 (실측 단위, 손목이 원점)
+    // 다른 스크립트에서 가져갈 최종 월드 좌표 배열
     public Vector3[] WorldHandJoints { get; private set; } = new Vector3[21];
     public bool IsHandDetected { get; private set; }
 
@@ -52,15 +52,16 @@ public class HandDataManager : MonoBehaviour
 
     void ProcessData(HandLandmarkerResult result)
     {
+        // 손 감지가 안되는 경우 return
         if (result.handLandmarks == null || result.handLandmarks.Count == 0)
         {
             IsHandDetected = false;
             return;
         }
-
+        // 손 감지됨
         IsHandDetected = true;
+        // 손의 landmark 좌표를 월드 좌표로 변환하여 저장
         var landmarks = result.handLandmarks[0].landmarks;
-
         for (int i = 0; i < landmarks.Count; i++)
         {
             HandJoints[i] = ConvertToWorld(landmarks[i].x, landmarks[i].y, landmarks[i].z);

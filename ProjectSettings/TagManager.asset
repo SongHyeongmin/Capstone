@@ -11,6 +11,8 @@ TagManager:
   - BlueBall
   - YellowBall
   - GreenBall
+  - Note
+  - Hand
   layers:
   - Default
   - TransparentFX

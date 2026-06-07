@@ -68,9 +68,9 @@ public class CubeFollower : MonoBehaviour
         Vector3 handMovement = _filteredHandPos - _initialHandPos;
 
         // 5. 최종 이동 위치 계산 및 적용
-        MoveCube(handMovement, compensationFactor);
+        MoveHand(handMovement, compensationFactor);
     }
-
+ 
     private void InitializeReferencePoints(Vector3 currentPos)
     {
         _initialCubePos = _rb.position;
@@ -78,9 +78,9 @@ public class CubeFollower : MonoBehaviour
         _filteredHandPos = currentPos;
     }
 
-    private void MoveCube(Vector3 movement, float compensation)
+    private void MoveHand(Vector3 movement, float compensation)
     {
-        // 화면 방향 벡터 계산 (XZ 평면화)
+        // 화면 방향 벡터 계산
         Vector3 camRight = _mainCam.transform.right;
         Vector3 camForward = _mainCam.transform.forward;
 
@@ -92,12 +92,10 @@ public class CubeFollower : MonoBehaviour
         // 최종 방향 및 이동량 계산
         float finalSensitivity = sensitivity * compensation;
         Vector3 moveDirection = (camRight * -movement.x) + (camForward * movement.y);
-
-        // 목표 위치 설정 (높이는 시작 지점의 높이로 절대 고정)
+        // 목표 위치 설정 (높이는 시작 지점의 높이로 고정)
         Vector3 targetPosition = _initialCubePos + (moveDirection * finalSensitivity);
         targetPosition.y = _initialCubePos.y;
-
-        // 물리 기반의 부드러운 위치 추적
+        // 물리 기반의 추적
         Vector3 nextPos = Vector3.Lerp(_rb.position, targetPosition, Time.fixedDeltaTime * smoothSpeed);
         _rb.MovePosition(nextPos);
     }

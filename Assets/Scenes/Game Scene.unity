@@ -138,10 +138,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CubeFollower
   dataManager: {fileID: 55197548}
   jointIndex: 8
-  sensitivity: 2
-  smoothSpeed: 20
+  sensitivity: 2.3
+  smoothSpeed: 5
   filterSmoothing: 0.1
-  standardRefLen: 0.2
+  standardRefLen: 0.5
 --- !u!54 &40627150
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -331,6 +331,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HandDataManager
   runner: {fileID: 1341939328}
+  arduinoReceiver: {fileID: 0}
+  Thumb: {fileID: 0}
+  Index: {fileID: 0}
+  Middle: {fileID: 0}
+  Ring: {fileID: 0}
+  Little: {fileID: 0}
 --- !u!1 &163627607
 GameObject:
   m_ObjectHideFlags: 0
@@ -627,8 +633,8 @@ MonoBehaviour:
   timerText: {fileID: 1451691961}
   score: 0
   isGameOver: 0
-  gameTimeLimit: 3
-  gameTimer: 3
+  gameTimeLimit: 90
+  gameTimer: 90
   totalBallCount: 0
   destroyedBallCount: 0
   successBallCount: 0

@@ -9,7 +9,6 @@ public class XRHandSynchronizer : MonoBehaviour
     [Header("손가락 뼈대 배열 (손목부터 끝 순서대로)")]
     [Tooltip("순서대로 0번부터 20번까지 조인트를 할당하세요.")]
     public Transform[] handBones; 
-    // 인스펙터에서 21개의 사이즈를 만들고, 손 모델의 Bone들을 드래그해서 넣어야 함
 
     [Header("설정")]
     public float smoothSpeed = 20f;
@@ -28,7 +27,8 @@ public class XRHandSynchronizer : MonoBehaviour
         // 1. 전체 위치 동기화 (손목 - 0번)
         if (handBones.Length > 0 && handBones[0] != null)
         {
-            handBones[0].position = Vector3.Lerp(handBones[0].position, dataManager.HandJoints[0], Time.deltaTime * smoothSpeed);
+            handBones[0].position = Vector3.Lerp(handBones[0].position, new Vector3(dataManager.HandJoints[0].x,dataManager.HandJoints[0].y, -1.3f), 
+                Time.deltaTime * smoothSpeed);
         }
         /*
         // 2. 각 마디 회전 동기화
