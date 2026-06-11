@@ -3,6 +3,9 @@ using TMPro;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.SceneManagement;
+using System.Collections;
+using Unity.VisualScripting;
+using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
@@ -29,7 +32,15 @@ public class GameManager : MonoBehaviour
     public int destroyedBallCount = 0;
     public int successBallCount = 0;
     
+    [Header("페이드 설정")]
+    public Image fadeImage;
+    public float fadeDuration = 1.0f;
+    public TextMeshProUGUI readyText;
+    public TextMeshProUGUI countdownText;
+    
     public Spawner spawner;
+
+    public bool playIsReady = false;
     
     private void Awake()
     {
@@ -45,6 +56,8 @@ public class GameManager : MonoBehaviour
     {
         // 공이 파괴될 때 실행할 함수 연결
         Ball.OnBallDestroyed += HandleBallDestroyed;
+
+        StartCoroutine(FadeInRoutine());
     }
 
     private void OnDisable()
@@ -111,5 +124,49 @@ public class GameManager : MonoBehaviour
         timeText.text = $"플레이 타임: {gameTimeLimit:F0}초";
 
         Time.timeScale = 0; // 게임 일시정지
+    }
+    
+    private IEnumerator FadeInRoutine()
+    {
+        float timer = 0f;
+        Color color = fadeImage.color;
+    
+        // 1. 일단 시작하자마자 완전 깜깜한 검은색 화면으로 세팅하고 켜기
+        color.a = 1f;
+        fadeImage.color = color;
+        fadeImage.gameObject.SetActive(true);
+
+        // 💡 [핵심 추가] 여기서 페이드인을 시작하기 전에 무조건 3초 동안 멍 때리며 대기!
+        // 이 3초 동안 HandDataManager가 영점을 열심히 잡고 있을 거야.
+        // yield return new WaitForSeconds(3.0f);
+        // 2. 3초 대기가 끝나면 그제야 천천히 알파값을 깎으면서 투명하게 만듦 (페이드 인)
+        float calibrationTime = 3.0f;
+        while (calibrationTime > 0f)
+        {
+            if (countdownText != null)
+            {
+                // 소수점 버리고 정수(3, 2, 1)로만 보여주고 싶다면 :F0
+                // 소수점 한자리(3.0, 2.5)까지 보여주고 싶다면 :F1
+                countdownText.text = calibrationTime.ToString("F1"); 
+            }
+
+            calibrationTime -= Time.deltaTime; // 시간 깎기
+            yield return null; // 1프레임 대기
+        }
+
+        // 3초 끝나면 타이머 텍스트는 깔끔하게 숨기기
+        if (countdownText != null) 
+            countdownText.gameObject.SetActive(false);
+        while (timer < fadeDuration)
+        {
+            timer += Time.deltaTime;
+            color.a = Mathf.Lerp(1f, 0f, timer / fadeDuration);
+            fadeImage.color = color;
+            yield return null; 
+        }
+        // 3. 완전히 투명해지면 노트 클릭이나 손 인식을 방해하지 않게 오브젝트를 꺼둠
+        fadeImage.gameObject.SetActive(false);
+        playIsReady = true; // 이제 플레이 준비 완료!
+        spawner.SpawnBall(); // 게임 시작하자마자 첫 공 스폰
     }
 }

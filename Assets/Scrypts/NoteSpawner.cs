@@ -38,7 +38,7 @@ public class NoteSpawner : MonoBehaviour
     void Update()
     {
         timer += Time.deltaTime;
-        if (timer >= spawnInterval)
+        if (timer >= spawnInterval && RythmGameManager.Instance.isGameActive)
         {
             SpawnRandomNote();
             timer = 0f;

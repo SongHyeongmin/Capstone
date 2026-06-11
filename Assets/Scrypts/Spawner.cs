@@ -15,7 +15,7 @@ public class Spawner : MonoBehaviour
     
     void Start()
     {
-        SpawnBall();
+        // SpawnBall();
     }
     
     public void SpawnBall()

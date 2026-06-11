@@ -43,6 +43,14 @@ public class CubeFollower : MonoBehaviour
             _isFirstDetection = true;
             return;
         }
+        
+        // 💡 [추가] 대장님(DataManager)이 영점 조절 끝내기 전까지는 큐브 너 움직이지 마!
+        // 3초 카운트다운 동안 큐브가 멋대로 움직이거나 원점 꼬이는 걸 원천 봉쇄함.
+        if (!dataManager.isCalibrated)
+        {
+            _isFirstDetection = true; // 영점 잡히는 순간을 진짜 첫 감지로 만들기 위해 킵!
+            return;
+        }
 
         // 1. 거리 측정 및 보정 인자 계산
         // 손목(0)에서 중지 시작점(9) 사이의 거리를 척도로 사용
