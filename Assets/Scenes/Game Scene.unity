@@ -645,6 +645,7 @@ MonoBehaviour:
   readyText: {fileID: 1298038876}
   countdownText: {fileID: 1704403957}
   spawner: {fileID: 456618901}
+  isHandTrackingActive: 0
   playIsReady: 0
 --- !u!82 &217504308
 AudioSource:
@@ -1026,7 +1027,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &484086396
 RectTransform:
   m_ObjectHideFlags: 0

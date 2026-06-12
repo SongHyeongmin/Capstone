@@ -39,6 +39,10 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI countdownText;
     
     public Spawner spawner;
+    
+    [Header("💡 핸드 트래킹 제어")]
+    // 💡 지금 손을 인식해서 오브젝트를 움직여도 되는가? (다른 스크립트들이 훔쳐볼 변수)
+    public bool isHandTrackingActive = false;
 
     public bool playIsReady = false;
     
@@ -168,5 +172,6 @@ public class GameManager : MonoBehaviour
         fadeImage.gameObject.SetActive(false);
         playIsReady = true; // 이제 플레이 준비 완료!
         spawner.SpawnBall(); // 게임 시작하자마자 첫 공 스폰
+        isHandTrackingActive = true;
     }
 }

@@ -35,8 +35,6 @@ public class HandDataManager : MonoBehaviour
     {
         if (runner != null)
             runner.OnHandResultDetected += OnResultsReceived;
-
-        // 🚀 게임 시작하자마자 3초 카운트다운 캘리브레이션 시작!
         StartCoroutine(CalibrationRoutine());
     }
     
@@ -80,14 +78,14 @@ public class HandDataManager : MonoBehaviour
             calibrationText = "영점 조절 완료!";
             Debug.Log("<color=yellow>👍 캘리브레이션 완료! 원점 저장됨.</color>");
         }
-        else
+        /*else
         {
             // 만약 3초 지났는데 손 안 대고 있었으면? 꼼수 부리지 말라고 재시작!
             calibrationText = "손이 감지되지 않아 재시도합니다...";
             Debug.LogWarning(calibrationText);
             yield return new WaitForSeconds(1f);
             StartCoroutine(CalibrationRoutine()); // 재귀 호출로 다시 시작
-        }
+        }*/
     }
 
     void ProcessData(HandLandmarkerResult result)
